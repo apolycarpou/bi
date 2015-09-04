@@ -6,17 +6,21 @@
 #
 default: &default
   adapter: mysql2
-  pool: 5
-  timeout: 5000
+  encoding: utf8
+  reconnect: true
+  host: <%= ENV['UTOPIA_MYSQL_HOST'] || 'localhost' %>
+  port: 3306
+  username: <%= ENV['UTOPIA_MYSQL_USERNAME'] || 'tester' %>
+  password: <%= ENV['UTOPIA_MYSQL_PASSWORD'] %>
+  database: <%= ENV['UTOPIA_DB_NAME'] || 'analytics_dev' %>
+
+# default: &default
+#   adapter: mysql2
+#   pool: 5
+#   timeout: 5000
 
 development:
   <<: *default
-  database: analytics_dev
-  encoding: utf8
-  username: tester
-  password: t3st3r!
-  host: localhost
-  port: 3306
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -24,17 +28,7 @@ development:
 test:
   <<: *default
   database: analytics_test
-  encoding: utf8
-  username: tester
-  password: t3st3r!
-  host: localhost
-  port: 3306
 
 production:
   <<: *default
   database: analytics
-  encoding: utf8
-  username: tester
-  password: t3st3r!
-  host: localhost
-  port: 3306
